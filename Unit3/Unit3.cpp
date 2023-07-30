@@ -1,0 +1,49 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+class GuessingGame {
+private:
+    int secretNumber;
+    int lowerBound;
+    int upperBound;
+
+public:
+    GuessingGame(int lower, int upper) {
+        lowerBound = lower;
+        upperBound = upper;
+        generateSecretNumber();
+    }
+    void generateSecretNumber() {
+        secretNumber = rand() % (upperBound - lowerBound + 1) + lowerBound;
+    }
+    void play() {
+        int guess;
+        int attempts = 0;
+        std::cout << "Welcome to the Super Secret Ninja Guessing Game!\n";
+        std::cout << "I have chosen a Super Secret Ninja Number between " << lowerBound << " and " << upperBound << ".\n";
+
+        do {
+            std::cout << "Enter your Secret guess: ";
+            std::cin >> guess;
+            attempts++;
+
+            if (guess == secretNumber) {
+                std::cout << "Congratulations! You guessed the Super Secret Ninja Number " << secretNumber << " in " << attempts << " attempts!\n";
+            } else if (guess < secretNumber) {
+                std::cout << "Try a higher number.\n";
+            } else {
+                std::cout << "Try a lower number.\n";
+            }
+        } while (guess != secretNumber);
+
+        std::cout << "Thanks for playing!\n";
+    }
+};
+
+int main() {
+    srand(time(0));
+    GuessingGame game(1, 100);
+    game.play();
+    return 0;
+}
